@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Propietario;
 class PropietarioController extends Controller
 {
     /**
@@ -11,7 +11,8 @@ class PropietarioController extends Controller
      */
     public function index()
     {
-        //
+        $propietarios = Propietario::all();
+        return view('propietarios.index', ['propietarios' => $propietarios]);
     }
 
     /**
@@ -19,7 +20,7 @@ class PropietarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('propietarios.create');
     }
 
     /**
@@ -27,7 +28,12 @@ class PropietarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $propietario = new Propietario();
+        $propietario->nombre = $request->nombre;
+        $propietario->telefono = $request->telefono;
+        $propietario->email = $request->email;
+        $propietario->direccion = $request->direccion;
+        $propietario->save();
     }
 
     /**
@@ -35,7 +41,8 @@ class PropietarioController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $propietario = Propietario::find($id);
+        return view('propietarios.show', ['propietario' => $propietario]);
     }
 
     /**
@@ -43,7 +50,8 @@ class PropietarioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $propietario = Propietario::find($id);
+        return view('propietarios.edit', ['propietario' => $propietario]);
     }
 
     /**
@@ -51,7 +59,12 @@ class PropietarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $propietario = Propietario::findOrFail($id);
+        $propietario->nombre = $request->nombre;
+        $propietario->telefono = $request->telefono;
+        $propietario->email = $request->email;
+        $propietario->direccion = $request->direccion;
+        $propietario->save();
     }
 
     /**
@@ -59,6 +72,7 @@ class PropietarioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $propietario = Propietario::find($id);
+        $propietario->delete();
     }
 }

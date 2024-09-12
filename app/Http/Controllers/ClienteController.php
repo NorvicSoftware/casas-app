@@ -29,11 +29,11 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = new Cliente();
-        $cliente->nombre = $request->nombre;
-        $cliente->telefono = $request->telefono;
-        $cliente->email = $request->email;
-        $cliente->direccion = $request->direccion;
+        $cliente=new cliente();
+        $cliente->nombre= $request->nombre;
+        $cliente->telefono= $request->telefono;
+        $cliente->email= $request->email;
+        $cliente->direccion= $request->direccion;
         $cliente->save();
     }
 
@@ -42,7 +42,7 @@ class ClienteController extends Controller
      */
     public function show(string $id)
     {
-        $cliente = Cliente::find($id);
+        $cliente=Cliente::find($id);
         return view('clientes.show', ['cliente' => $cliente]);
     }
 
@@ -60,10 +60,11 @@ class ClienteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $cliente = Cliente::find($id);
-        $cliente->nombre = $request->nombre;
-        $cliente->telefono = $request->telefono;
-        $cliente->direccion = $request->direccion;
+        $cliente=Cliente::find($id);
+        $cliente->nombre= $request->nombre;
+        $cliente->telefono= $request->telefono;
+        $cliente->email= $request->email;
+        $cliente->direccion= $request->direccion;
         $cliente->save();
     }
 
