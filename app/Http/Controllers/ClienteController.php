@@ -12,7 +12,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::where('nombre', 'like', '%A%')->get();
+        $clientes = Cliente::get();
         return view('clientes.index', ['clientes' => $clientes]);
     }
 
@@ -21,7 +21,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('clientes.create');
+        return view('clientes.crear');
     }
 
     /**
@@ -29,12 +29,14 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente=new cliente();
+        $cliente= new cliente();
         $cliente->nombre= $request->nombre;
         $cliente->telefono= $request->telefono;
         $cliente->email= $request->email;
         $cliente->direccion= $request->direccion;
         $cliente->save();
+        // return redirect('clientes.index');
+        return redirect()->action([ClienteController::class, 'index']);
     }
 
     /**
@@ -42,8 +44,8 @@ class ClienteController extends Controller
      */
     public function show(string $id)
     {
-        $cliente=Cliente::find($id);
-        return view('clientes.show', ['cliente' => $cliente]);
+        $cliente = Cliente::find($id);
+        return view('clientes.mostrar', ['cliente' => $cliente]);
     }
 
     /**
@@ -52,7 +54,7 @@ class ClienteController extends Controller
     public function edit(string $id)
     {
         $cliente = Cliente::find($id);
-        return view('clientes.edit', ['cliente' => $cliente]);
+        return view('clientes.editar', ['cliente' => $cliente]);
     }
 
     /**
@@ -66,6 +68,8 @@ class ClienteController extends Controller
         $cliente->email= $request->email;
         $cliente->direccion= $request->direccion;
         $cliente->save();
+
+        return redirect()->action([ClienteController::class, 'index']);
     }
 
     /**
@@ -75,5 +79,6 @@ class ClienteController extends Controller
     {
         $cliente = Cliente::find($id);
         $cliente->delete();
+        return redirect()->action([ClienteController::class, 'index']);
     }
 }

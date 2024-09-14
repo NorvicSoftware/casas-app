@@ -12,13 +12,13 @@ Route::get('/', function () {
 
 //Agrupamos las rutas de Clientes
 Route::controller(ClienteController::class)->group(function(){
-    Route::get('/clientes','index');
+    Route::get('/clientes','index')->name('clientes.index'); ;
     Route::get('/clientes/crear','create');
-    Route::post('/clientes/create', 'store');
-    Route::get('/clientes/show/{id}', 'show');
+    Route::post('/clientes/crear', 'store')->name('clientes.store');     
+    Route::get('/clientes/mostrar/{id}', 'show');
     Route::get('/clientes/editar/{id}', 'edit');
-    Route::put('/clientes/update/{id}', 'update');
-    Route::delete('/clientes/eliminar/{id}', 'destroy');
+    Route::put('/clientes/editar/{id}', 'update')->name('clientes.update');
+    Route::delete('/clientes/eliminar/{id}', 'destroy')->name('clientes.destroy');
 });
 
 // Agrupamos las rutas de Propiedades
