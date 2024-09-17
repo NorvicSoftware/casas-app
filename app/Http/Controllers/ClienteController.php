@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use Exception;
 
 class ClienteController extends Controller
 {
@@ -29,14 +30,28 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente= new cliente();
-        $cliente->nombre= $request->nombre;
-        $cliente->telefono= $request->telefono;
-        $cliente->email= $request->email;
-        $cliente->direccion= $request->direccion;
-        $cliente->save();
-        // return redirect('clientes.index');
-        return redirect()->action([ClienteController::class, 'index']);
+        //esta parte donde tengo que validar la informacion
+        $request->validate([
+            'nombre' => 'required|min:5|max:50|unique:clientes',
+            'telefono' => 'nullable|min:8|max:15',
+            'email' => 'nullable|email',
+        ]);
+
+        try{
+            $cliente= new cliente();
+            $cliente->nombre= $request->nombre;
+            $cliente->telefono= $request->telefono;
+            $cliente->email= $request->email;
+            $cliente->direccion= $request->direccion;
+            $cliente->save();
+            
+            return redirect()->action([ClienteController::class, 'index']);
+        }
+        catch(Exception $exc) {
+            return redirect()->action([ClienteController::class, 'create']);
+        }
+
+        
     }
 
     /**
