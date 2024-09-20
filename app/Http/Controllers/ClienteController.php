@@ -5,15 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use Exception;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\ClienteExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Repositories\ClienteRepository;
 
 class ClienteController extends Controller
 {
+    protected $clientes;
+
+    public function __construct(ClienteRepository $clientes)
+    {
+        $this->clientes = $clientes;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $clientes = Cliente::get();
+        $clientes = $this->clientes->getClientes();
         return view('clientes.index', ['clientes' => $clientes]);
     }
 
@@ -95,5 +105,19 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
         $cliente->delete();
         return redirect()->action([ClienteController::class, 'index']);
+    }
+
+    public function pdf(){
+        $clientes = $this->clientes->getClientes();
+        $data = [
+            'clientes' => $clientes,
+        ];
+        $pdf = Pdf::loadView('reportes.clientes', $data);
+        return $pdf->download('clientes.pdf');
+
+    }
+
+    public function excel(){
+        return Excel::download(new ClienteExport, 'clientes.xlsx');
     }
 }

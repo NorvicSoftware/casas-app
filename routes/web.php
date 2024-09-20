@@ -19,6 +19,9 @@ Route::controller(ClienteController::class)->group(function(){
     Route::get('/clientes/editar/{id}', 'edit');
     Route::put('/clientes/editar/{id}', 'update')->name('clientes.update');
     Route::delete('/clientes/eliminar/{id}', 'destroy')->name('clientes.destroy');
+
+    Route::get('/clientes/reportes/listadoclientes', 'pdf')->name('clientes.reportedeclientes');
+    Route::get('/clientes/reportes/excel', 'excel')->name('clientes.excel');
 });
 
 // Agrupamos las rutas de Propiedades
