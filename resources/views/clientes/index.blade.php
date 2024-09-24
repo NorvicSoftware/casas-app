@@ -1,7 +1,7 @@
 @extends('plantilla')
 @section('contenido')
     <x-menu />
-    <h1>LISTADO DE CLIENTES</h1>
+    <h1>LISTADO DE CLIENTES 23/09/2024</h1>
     <a href="clientes/crear">CREAR NUEVO CLIENTE</a>
     <a href="clientes/reportes/listadoclientes">GENERAR REPORTE PDF</a>
     <a href="clientes/reportes/excel">GENERAR REPORTE EXCEL</a>
@@ -35,6 +35,5 @@
 
         </tbody>
     </table>
-    <x-menu />
     <x-menu />
 @endsection
