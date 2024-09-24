@@ -7,6 +7,22 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Docker 
+
+Get Docker from https://www.docker.com/
+
+```bash
+docker build -t <image-name> .
+```
+
+```bash
+docker run -p <port-local>:<port-image> <image-name>
+```
+
+```bash
+docker run -p <port-local>:<port-image> -v <path-local>:<path-image> <image-name>
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
